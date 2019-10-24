@@ -22,11 +22,28 @@ class App extends Component {
             ))          
     }
 
+    handleSubmit (e){
+        e.preventDefault(); 
+
+        let  text = this.refs.textInput.value.trim();
+        TasksCollection.insert({
+            text, 
+            createAt: new Date(),
+            status: false
+        })
+        this.refs.textInput.value =""
+        console.log(text);
+    }
+
     render() {
         return (
             <div className="container">
                 <header>
                     <h1> ToDo List</h1>
+                    <form className="newtask" onSubmit={this.handleSubmit.bind(this)}>
+                        <input type="text" ref="textInput"
+                                placeholder="Add new task" />
+                    </form>
                 </header>
                 <ul>
                     {this.renderTasks()}
@@ -40,6 +57,6 @@ class App extends Component {
 //export default App;
 export  default withTracker ( () => {
     return {
-        tasks: TasksCollection.find({}).fetch(),
+        tasks: TasksCollection.find({}, {sort: {createAt: -1}}).fetch(),
     }
 })(App)

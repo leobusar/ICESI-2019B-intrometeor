@@ -4,3 +4,8 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.ended {
+  text-decoration-color: black;
+  text-decoration: line-through;
+}

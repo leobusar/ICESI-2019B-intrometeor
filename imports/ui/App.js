@@ -64,6 +64,7 @@ class App extends Component {
 
 //export default App;
 export  default withTracker ( () => {
+    Meteor.subscribe('tasks');
     return {
         tasks: TasksCollection.find({}, {sort: {createAt: -1}}).fetch(),
     }

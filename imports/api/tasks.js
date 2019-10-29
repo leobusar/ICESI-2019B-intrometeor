@@ -4,6 +4,13 @@ import { check } from 'meteor/check';
 
 export  const  TasksCollection =  new Mongo.Collection('tasks');
 
+if(Meteor.isServer){
+    console.log()
+    Meteor.publish('tasks', () => {
+        return TasksCollection.find({owner: Meteor.userId()});
+    });
+}
+
 Meteor.methods({
     'tasks.insert'(text) {
         check(text, String);
